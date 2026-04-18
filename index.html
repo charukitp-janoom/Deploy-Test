@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LINE Bot Systems — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080c10;
+  --bg2: #0d1117;
+  --bg3: #161b22;
+  --bg4: #21262d;
+  --border: #21262d;
+  --border2: #30363d;
+  --text: #e6edf3;
+  --text2: #8b949e;
+  --text3: #484f58;
+  --green: #3fb950;
+  --green-dim: #0d2d0d;
+  --blue: #58a6ff;
+  --blue-dim: #0d1f2d;
+  --amber: #d29922;
+  --amber-dim: #2d1f0d;
+  --red: #f85149;
+  --purple: #bc8cff;
+  --purple-dim: #1a0d2d;
+  --font: 'IBM Plex Sans Thai', sans-serif;
+  --mono: 'IBM Plex Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── GRID BG ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(88,166,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(88,166,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── GLOW ORBS ─── */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 0;
+}
+.orb-1 { width: 400px; height: 400px; background: #3fb950; top: -100px; left: -100px; }
+.orb-2 { width: 300px; height: 300px; background: #58a6ff; bottom: 20%; right: -80px; }
+.orb-3 { width: 200px; height: 200px; background: #bc8cff; top: 40%; left: 30%; }
+
+/* ─── HEADER ─── */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(8,12,16,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 0.5px solid var(--border);
+  padding: 0 2rem;
+}
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+}
+.logo-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.header-mono {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text3);
+}
+
+/* ─── HERO ─── */
+.hero {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 6rem 2rem 4rem;
+  text-align: center;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg3);
+  border: 0.5px solid var(--border2);
+  border-radius: 20px;
+  padding: 5px 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text2);
+  margin-bottom: 2rem;
+  letter-spacing: 0.05em;
+}
+.hero-eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+.hero h1 {
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--green);
+}
+.hero-sub {
+  font-size: 16px;
+  color: var(--text2);
+  max-width: 540px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.7;
+}
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+.hero-stat {
+  text-align: center;
+}
+.hero-stat-num {
+  font-family: var(--mono);
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--text);
+  display: block;
+}
+.hero-stat-label {
+  font-size: 12px;
+  color: var(--text3);
+}
+
+/* ─── FILTER NAV ─── */
+.filter-nav {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 0 2rem 3rem;
+}
+.filter-btn {
+  padding: 7px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-family: var(--font);
+  border: 0.5px solid var(--border2);
+  background: transparent;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-dim); }
+.filter-btn.active { border-color: var(--green); color: var(--green); background: var(--green-dim); }
+
+/* ─── GRID ─── */
+.main {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem 4rem;
+}
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 16px;
+}
+
+/* ─── CARD ─── */
+.card {
+  background: var(--bg2);
+  border: 0.5px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s, background 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--card-accent, var(--green)), transparent);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.card:hover { border-color: var(--card-accent, var(--green)); transform: translateY(-3px); background: var(--bg3); }
+.card:hover::before { opacity: 1; }
+
+.card[data-cat="training"] { --card-accent: var(--green); }
+.card[data-cat="ops"] { --card-accent: var(--blue); }
+.card[data-cat="admin"] { --card-accent: var(--amber); }
+.card[data-cat="custom"] { --card-accent: var(--purple); }
+
+.card-head { display: flex; justify-content: space-between; align-items: flex-start; }
+.card-icon {
+  width: 42px; height: 42px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  border: 0.5px solid var(--border2);
+}
+.badge {
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-family: var(--mono);
+  letter-spacing: 0.03em;
+}
+.badge-ready { background: var(--green-dim); border: 0.5px solid var(--green); color: var(--green); }
+.badge-demo  { background: var(--blue-dim);  border: 0.5px solid var(--blue);  color: var(--blue); }
+.badge-custom{ background: var(--purple-dim);border: 0.5px solid var(--purple);color: var(--purple); }
+
+.card h3 { font-size: 15px; font-weight: 500; color: var(--text); line-height: 1.4; }
+.card p  { font-size: 13px; color: var(--text2); line-height: 1.65; flex: 1; }
+.tag-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.tag {
+  font-size: 10px;
+  padding: 2px 9px;
+  border-radius: 6px;
+  background: var(--bg);
+  border: 0.5px solid var(--border2);
+  color: var(--text3);
+  font-family: var(--mono);
+}
+.tag-accent {
+  border-color: var(--card-accent, var(--green));
+  color: var(--card-accent, var(--green));
+}
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 8px;
+  border-top: 0.5px solid var(--border);
+}
+.card-link {
+  font-size: 12px;
+  color: var(--blue);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.card-liff-count {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text3);
+}
+
+/* ─── MODAL ─── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem 1rem;
+  overflow-y: auto;
+}
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: var(--bg2);
+  border: 0.5px solid var(--border2);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 520px;
+  margin: auto;
+  overflow: hidden;
+  animation: slideUp 0.2s ease;
+}
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.modal-top {
+  padding: 1.5rem 1.5rem 1rem;
+  border-bottom: 0.5px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.modal-top-left { display: flex; gap: 12px; align-items: center; }
+.modal-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; border: 0.5px solid var(--border2); flex-shrink: 0; }
+.modal-title { font-size: 15px; font-weight: 500; color: var(--text); }
+.modal-sub   { font-size: 12px; color: var(--text3); margin-top: 2px; }
+.close-btn {
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  background: var(--bg3);
+  border: 0.5px solid var(--border2);
+  color: var(--text2);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+  transition: border-color 0.15s, color 0.15s;
+}
+.close-btn:hover { border-color: var(--red); color: var(--red); }
+
+.modal-body { padding: 1.25rem 1.5rem 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
+
+.section-label {
+  font-size: 10px;
+  font-family: var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--blue);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.feature-list { display: flex; flex-direction: column; gap: 6px; }
+.feature-item {
+  display: flex; gap: 8px; align-items: flex-start;
+  font-size: 13px; color: var(--text2); line-height: 1.5;
+}
+.feature-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--green);
+  margin-top: 7px;
+  flex-shrink: 0;
+}
+.tech-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.tech-tag {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: var(--green-dim);
+  border: 0.5px solid var(--green);
+  color: var(--green);
+  font-family: var(--mono);
+}
+
+/* ─── LIFF LIST ─── */
+.liff-list { display: flex; flex-direction: column; gap: 6px; }
+.liff-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: var(--bg3);
+  border: 0.5px solid var(--border);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+.liff-item:hover { border-color: var(--blue); background: var(--bg4); }
+.liff-left { display: flex; align-items: center; gap: 10px; }
+.liff-emoji {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.liff-name { font-size: 13px; font-weight: 500; color: var(--text); }
+.liff-desc { font-size: 11px; color: var(--text3); margin-top: 1px; }
+.liff-arrow { font-size: 12px; color: var(--blue); }
+.liff-url {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--text3);
+  margin-top: 2px;
+}
+
+.no-liff {
+  font-size: 12px;
+  color: var(--text3);
+  padding: 10px 0;
+  font-family: var(--mono);
+}
+
+/* ─── FOOTER ─── */
+footer {
+  position: relative;
+  z-index: 1;
+  border-top: 0.5px solid var(--border);
+  padding: 2rem;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text3);
+  font-family: var(--mono);
+}
+footer span { color: var(--green); }
+
+/* ─── HIDE ─── */
+.card.hidden { display: none; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 600px) {
+  .hero { padding: 4rem 1rem 2rem; }
+  .main { padding: 0 1rem 3rem; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .hero-stats { gap: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a class="logo" href="#">
+      <span class="logo-dot"></span>
+      LINE Bot Systems
+    </a>
+    <span class="header-mono">v1.0 · 2567</span>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <span class="dot"></span>
+    Google Apps Script + LIFF + LINE OA
+  </div>
+  <h1>ระบบ <em>LINE Bot</em><br>สำหรับองค์กร</h1>
+  <p class="hero-sub">ระบบอัตโนมัติบน LINE OA พัฒนาด้วย Google Apps Script และ LIFF เชื่อมต่อ Google Sheets เป็น Backend พร้อมใช้งานจริง ไม่มีค่า Server</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="hero-stat-num">3+</span>
+      <span class="hero-stat-label">ระบบหลัก</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">13</span>
+      <span class="hero-stat-label">LIFF Modules</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">GAS</span>
+      <span class="hero-stat-label">Zero Server Cost</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">LINE</span>
+      <span class="hero-stat-label">แพลตฟอร์มหลัก</span>
+    </div>
+  </div>
+</section>
+
+<!-- FILTER -->
+<div class="filter-nav">
+  <button class="filter-btn active" onclick="filter('all',this)">ทั้งหมด</button>
+  <button class="filter-btn" onclick="filter('training',this)">ฝึกอบรม</button>
+  <button class="filter-btn" onclick="filter('ops',this)">ปฏิบัติการ</button>
+  <button class="filter-btn" onclick="filter('admin',this)">บริหาร</button>
+  <button class="filter-btn" onclick="filter('custom',this)">Custom</button>
+</div>
+
+<!-- CARDS -->
+<main class="main">
+  <div class="cards-grid" id="grid"></div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  พัฒนาโดย ชุดระบบ LINE Bot &nbsp;·&nbsp; <span>Google Apps Script + LIFF + LINE OA</span> &nbsp;·&nbsp; © 2567
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="overlay" onclick="closeOutside(event)">
+  <div class="modal" id="modal">
+    <div class="modal-top">
+      <div class="modal-top-left">
+        <div class="modal-icon" id="mIcon"></div>
+        <div>
+          <div class="modal-title" id="mTitle"></div>
+          <div class="modal-sub" id="mSub"></div>
+        </div>
+      </div>
+      <button class="close-btn" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="mBody"></div>
+  </div>
+</div>
+
+<script>
+const systems = [
+  {
+    id: 1,
+    cat: 'training',
+    icon: '🎓',
+    iconBg: '#0d2d0d',
+    title: 'ระบบฝึกทหาร / Unit School',
+    sub: 'ระบบการเรียนรู้และทดสอบความรู้ทางทหาร',
+    desc: 'ระบบทดสอบความรู้ทางทหารครบวงจร เลือกวิชา หมวดหมู่ และทำข้อสอบผ่าน LINE Bot พร้อมมินิเกมเสริมทักษะ',
+    tags: ['ทดสอบ', 'คะแนน', 'วิชาทหาร', 'มินิเกม'],
+    badge: 'ready',
+    badgeLabel: 'พร้อมแสดง',
+    features: [
+      'เลือกวิชาและหมวดหมู่ก่อนสอบ',
+      'ระบบสุ่มข้อสอบและเก็บคะแนนอัตโนมัติ',
+      'ดูประวัติการสอบย้อนหลัง',
+      'Admin จัดการข้อสอบและดูสถิติภาพรวม',
+      'มินิเกม Survival, Codebreaker, Duel และ Quests',
+      'คลังความรู้และ Flashcard เสริมการเรียน',
+      'Live Class สำหรับผู้สอนและผู้เรียน',
+      'Store แลกของรางวัลด้วยคะแนน',
+    ],
+    techs: ['LINE Bot', 'LIFF', 'GAS', 'Google Sheets'],
+    liffs: [
+      { icon:'📝', bg:'#0d2d0d', name:'ลงทะเบียน',     desc:'สมัครสมาชิกและข้อมูลส่วนตัว',   url:'https://liff.line.me/2009717287-28e2ynXL' },
+      { icon:'📋', bg:'#0d1f2d', name:'ทำข้อสอบ',      desc:'เลือกวิชาและทดสอบความรู้',      url:'https://liff.line.me/2009717287-nSod0Xpx' },
+      { icon:'⚙️', bg:'#2d1a1a', name:'Admin Dashboard',desc:'จัดการระบบและดูสถิติ',          url:'https://liff.line.me/2009717287-baGusOWI' },
+      { icon:'📚', bg:'#0d2a2d', name:'คลังความรู้',    desc:'บทเรียนและเอกสารอ้างอิง',       url:'https://liff.line.me/2009717287-o7MWqsbp' },
+      { icon:'🃏', bg:'#2d2a0d', name:'Flashcard',      desc:'ท่องจำด้วยไพ่คำถาม',            url:'https://liff.line.me/2009717287-411iVMXe' },
+      { icon:'🎮', bg:'#0d0d2d', name:'มินิเกม',        desc:'เกมทดสอบความรู้แบบสนุก',       url:'https://liff.line.me/2009717287-qTXoc8Mw' },
+      { icon:'🏆', bg:'#2d0d2a', name:'Survival Mode',  desc:'โหมดความอยู่รอด ตอบให้ได้',    url:'https://liff.line.me/2009717287-2RbYerHf' },
+      { icon:'🔐', bg:'#0d2d2a', name:'Codebreaker',    desc:'ถอดรหัสปริศนา',                 url:'https://liff.line.me/2009717287-TPwZKTKt' },
+      { icon:'⚔️', bg:'#2d1f0d', name:'Duel Mode',      desc:'ดวลความรู้แบบ 1v1',             url:'https://liff.line.me/2009717287-UJ4Y1wtX' },
+      { icon:'🗺️', bg:'#0d2d1f', name:'Quests',         desc:'ภารกิจและความท้าทาย',           url:'https://liff.line.me/2009717287-htEMqY79' },
+      { icon:'🛒', bg:'#2d2d0d', name:'Store',           desc:'แลกของรางวัลด้วยคะแนน',        url:'https://liff.line.me/2009717287-rli41ASz' },
+      { icon:'📡', bg:'#1a1a1a', name:'Live (ผู้เรียน)',desc:'เข้าห้องเรียนสด',               url:'https://liff.line.me/2009717287-H2IUHwxQ' },
+      { icon:'🎙️', bg:'#1f1a1a', name:'Live (ผู้สอน)', desc:'โฮสต์และจัดการห้องเรียนสด',   url:'https://liff.line.me/2009717287-DofMgtKC' },
+    ]
+  },
+  {
+    id: 2,
+    cat: 'ops',
+    icon: '📦',
+    iconBg: '#0d1f2d',
+    title: 'ระบบพัสดุ (Parcel)',
+    sub: 'บริหารจัดการพัสดุรับ-จ่ายในหน่วย',
+    desc: 'บริหารจัดการพัสดุรับ-จ่าย สแกน QR Code / Barcode แจ้งเตือนอัตโนมัติทั้ง LINE และ Telegram',
+    tags: ['QR Scan', 'Barcode', 'แจ้งเตือน', 'Telegram'],
+    badge: 'ready',
+    badgeLabel: 'พร้อมแสดง',
+    features: [
+      'สแกน QR Code และ Barcode ของพัสดุ',
+      'รายการพัสดุรอรับแบบ Real-time',
+      'แจ้งเตือนอัตโนมัติผ่าน LINE + Telegram',
+      'สรุปรายวันส่งกลุ่ม Telegram โดยอัตโนมัติ',
+      'Admin Dashboard จัดการและติดตามพัสดุ',
+      'ป้องกันการแจ้งเตือนซ้ำ (Deduplication)',
+    ],
+    techs: ['LINE Bot', 'LIFF', 'GAS', 'Telegram Bot', 'Google Sheets'],
+    liffs: []
+  },
+  {
+    id: 3,
+    cat: 'ops',
+    icon: '🛡️',
+    iconBg: '#2d1f0d',
+    title: 'ระบบตรวจการณ์ (Guard Patrol)',
+    sub: 'ตรวจสอบจุดตรวจการณ์ผ่าน QR Code',
+    desc: 'กำลังพลสแกน QR Code ที่จุดตรวจแต่ละจุด บันทึกเวลา และแจ้งเตือนผู้บังคับบัญชาทันที',
+    tags: ['QR Patrol', 'จุดตรวจ', 'แจ้งเตือน', 'รายงาน'],
+    badge: 'ready',
+    badgeLabel: 'พร้อมแสดง',
+    features: [
+      'สแกน QR Code ที่จุดตรวจแต่ละจุด',
+      'บันทึกเวลาและชื่อผู้ตรวจการณ์อัตโนมัติ',
+      'แจ้งเตือน LINE ผู้บังคับบัญชาแบบ Real-time',
+      'สรุปรายงานตามจุดตรวจการณ์',
+      'ดึงชื่อ LINE Display Name โดยอัตโนมัติ',
+      'รองรับหลายจุดตรวจในรอบเดียว',
+    ],
+    techs: ['LINE Bot', 'LIFF', 'GAS', 'Google Sheets'],
+    liffs: []
+  },
+  {
+    id: 4,
+    cat: 'custom',
+    icon: '⚡',
+    iconBg: '#1a0d2d',
+    title: 'ระบบ Custom ตามต้องการ',
+    sub: 'ออกแบบและพัฒนาตามความต้องการจริง',
+    desc: 'รองรับการพัฒนาระบบใหม่ตามความต้องการขององค์กร เชื่อมต่อ LINE OA ที่มีอยู่แล้วได้ทันที',
+    tags: ['Custom', 'On Request', 'LINE OA'],
+    badge: 'custom',
+    badgeLabel: 'สั่งทำ',
+    features: [
+      'ออกแบบระบบตามความต้องการจริงขององค์กร',
+      'รองรับทุกหน่วยงาน ทั้งราชการและเอกชน',
+      'เชื่อมต่อ LINE OA ที่มีอยู่แล้วได้ทันที',
+      'พัฒนาบน GAS ไม่มีค่า Server รายเดือน',
+      'ส่งมอบพร้อมคู่มือการใช้งาน',
+    ],
+    techs: ['Custom', 'LINE OA', 'GAS', 'LIFF', 'Google Sheets'],
+    liffs: []
+  }
+];
+
+function renderCards(filterCat) {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  const filtered = filterCat === 'all' ? systems : systems.filter(s => s.cat === filterCat);
+  filtered.forEach((s, i) => {
+    const tagsHtml = s.tags.map(t => `<span class="tag">${t}</span>`).join('');
+    const liffBadge = s.liffs.length
+      ? `<span class="tag tag-accent">${s.liffs.length} LIFF</span>`
+      : '';
+    const badgeClass = s.badge === 'ready' ? 'badge-ready' : s.badge === 'demo' ? 'badge-demo' : 'badge-custom';
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.dataset.cat = s.cat;
+    card.style.animationDelay = (i * 0.05) + 's';
+    card.innerHTML = `
+      <div class="card-head">
+        <div class="card-icon" style="background:${s.iconBg}">${s.icon}</div>
+        <span class="badge ${badgeClass}">${s.badgeLabel}</span>
+      </div>
+      <h3>${s.title}</h3>
+      <p>${s.desc}</p>
+      <div class="tag-row">${tagsHtml}${liffBadge}</div>
+      <div class="card-footer">
+        <span class="card-link">ดูรายละเอียด →</span>
+        ${s.liffs.length ? `<span class="card-liff-count">${s.liffs.length} modules</span>` : ''}
+      </div>`;
+    card.addEventListener('click', () => openModal(s.id));
+    grid.appendChild(card);
+  });
+}
+
+function filter(cat, el) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderCards(cat);
+}
+
+function openModal(id) {
+  const s = systems.find(x => x.id === id);
+  document.getElementById('mIcon').textContent = s.icon;
+  document.getElementById('mIcon').style.background = s.iconBg;
+  document.getElementById('mTitle').textContent = s.title;
+  document.getElementById('mSub').textContent = s.sub;
+
+  const feats = s.features.map(f =>
+    `<div class="feature-item"><span class="feature-dot"></span>${f}</div>`).join('');
+  const techs = s.techs.map(t => `<span class="tech-tag">${t}</span>`).join('');
+
+  let liffHtml = '';
+  if (s.liffs.length) {
+    const items = s.liffs.map(l => `
+      <a class="liff-item" href="${l.url}" target="_blank" rel="noopener">
+        <div class="liff-left">
+          <div class="liff-emoji" style="background:${l.bg}">${l.icon}</div>
+          <div>
+            <div class="liff-name">${l.name}</div>
+            <div class="liff-desc">${l.desc}</div>
+          </div>
+        </div>
+        <span class="liff-arrow">↗</span>
+      </a>`).join('');
+    liffHtml = `
+      <div>
+        <div class="section-label">เปิด LIFF — ${s.liffs.length} ระบบย่อย</div>
+        <div class="liff-list">${items}</div>
+      </div>`;
+  } else {
+    liffHtml = `
+      <div>
+        <div class="section-label">LIFF Links</div>
+        <div class="no-liff">// ยังไม่ได้กำหนด LIFF links — แจ้งเพื่อเพิ่มภายหลัง</div>
+      </div>`;
+  }
+
+  document.getElementById('mBody').innerHTML = `
+    <div>
+      <div class="section-label">ฟีเจอร์หลัก</div>
+      <div class="feature-list">${feats}</div>
+    </div>
+    <div>
+      <div class="section-label">เทคโนโลยีที่ใช้</div>
+      <div class="tech-row">${techs}</div>
+    </div>
+    ${liffHtml}`;
+
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeOutside(e) {
+  if (e.target === document.getElementById('overlay')) closeModal();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+renderCards('all');
+</script>
+</body>
+</html>

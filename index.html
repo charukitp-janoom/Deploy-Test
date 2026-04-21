@@ -1838,10 +1838,10 @@ footer span { color: var(--green); }
     <div class="demo-wrapper">
       <!-- LEFT: Info + Selector -->
       <div class="demo-info">
-        <h3>เลือก flow ที่อยากลอง</h3>
-        <p>ทั้งหมดเป็นส่วนหนึ่งของระบบ <strong>Unit School</strong> — ระบบฝึกอบรมทหารที่ใช้งานจริง ลอง flow ไหนก่อนก็ได้</p>
+        <h3 id="demoLeftTitle">เลือก flow ที่อยากลอง</h3>
+        <p id="demoLeftDesc">ทั้งหมดเป็นส่วนหนึ่งของระบบ <strong>Unit School</strong> — ระบบฝึกอบรมทหารที่ใช้งานจริง ลอง flow ไหนก่อนก็ได้</p>
 
-        <div class="demo-selector">
+        <div class="demo-selector" id="demoSelector">
           <button class="demo-option active" onclick="selectDemo('register', this)">
             <div class="demo-option-icon">📝</div>
             <div class="demo-option-text">
@@ -2310,9 +2310,9 @@ const liffDemos = {
       q1: { title: 'ข้อที่ 1', desc: 'ระบบแสดงข้อสอบทีละข้อ พร้อมตัวเลือก A/B/C/D — มี timer นับถอยหลังตลอดการสอบ' },
       q2: { title: 'ข้อที่ 2', desc: 'ผู้เรียนกดตัวเลือกที่ต้องการ ปุ่ม "ถัดไป" จะใช้ได้เมื่อเลือกคำตอบแล้ว' },
       q3: { title: 'ข้อสุดท้าย', desc: 'เมื่อถึงข้อสุดท้าย ปุ่มจะเปลี่ยนเป็น "ส่งข้อสอบ"' },
-      result: { title: 'สรุปคะแนน', desc: 'ระบบคำนวณคะแนนทันที บันทึกลง Google Sheet อัปเดต ranking และประวัติสอบ' },
+      result: { title: 'สรุปคะแนน', desc: 'ระบบคำนวณคะแนนทันที บันทึกลง Google Sheet อัปเดต ranking และแสดงเฉลยข้อสอบ' },
     },
-    flow: 'ขั้นตอน:<br>① เลือกวิชา<br>② สุ่มข้อสอบ<br>③ ตอบทีละข้อ<br>④ ส่ง &rarr; ดูคะแนน',
+    flow: 'ขั้นตอน:<br>① เลือกวิชา<br>② สุ่มข้อสอบ<br>③ ตอบทีละข้อ<br>④ ส่ง &rarr; ดูคะแนนและเฉลย',
   },
   flashcard: {
     title: 'Unit School — Flashcard',
@@ -2330,11 +2330,11 @@ const liffDemos = {
     steps: ['intro', 'q1', 'q2', 'win'],
     stepInfo: {
       intro: { title: 'เริ่มเกมเศรษฐี', desc: 'เกมเศรษฐีทำข้อสอบทีละข้อเพื่อสะสมเงินรางวัล ตอบผิดจบเกม' },
-      q1: { title: 'ข้อที่ 1 — ฿1,000', desc: 'ตอบถูก → เงินสะสมเพิ่มขึ้นตามระดับ ตัวจับเวลา 60 วินาทีต่อข้อ' },
+      q1: { title: 'ข้อที่ 1 — ฿1,000', desc: 'ตอบถูก → เงินสะสมเพิ่มขึ้นตามระดับ ตัวจับเวลา 60 วินาทีต่อข้อ พร้อมตัวช่วยจำลอง' },
       q2: { title: 'ข้อที่ 2 — ฿2,000', desc: 'ยิ่งตอบได้ต่อเนื่อง เงินรางวัลยิ่งเพิ่มแบบก้าวกระโดด' },
       win: { title: 'สะสมเงินรางวัล', desc: 'คะแนนสะสมเข้าทำเนียบเศรษฐีอัตโนมัติ ใช้แข่ง ranking ในหน่วยได้' },
     },
-    flow: 'ขั้นตอน:<br>① เริ่มเกม<br>② ตอบถูก = เงินสะสม<br>③ ตอบผิด = จบเกม<br>④ เข้าทำเนียบเศรษฐี',
+    flow: 'ขั้นตอน:<br>① เริ่มเกม<br>② ใช้ตัวช่วย (ถ้ามี)<br>③ ตอบถูก = เงินสะสม<br>④ เข้าทำเนียบเศรษฐี',
   },
   knowledge: {
     title: 'Unit School — คลังความรู้',
@@ -2410,6 +2410,22 @@ const liffDemos = {
       view: { title: 'ทำเนียบ (Leaderboard)', desc: 'จัดอันดับกำลังพลตามคะแนนสะสม หรือเหรียญรางวัล' }
     },
     flow: 'ขั้นตอน:<br>① เปิดดูอันดับ<br>② เทียบอันดับตัวเอง'
+  },
+  parcel: {
+    title: 'ระบบพัสดุ (Parcel)',
+    steps: ['coming_soon'],
+    stepInfo: {
+      coming_soon: { title: 'ไม่มี Demo', desc: 'ระบบนี้ยังไม่มีสภาพแวดล้อมจำลอง (Demo) ให้ทดลองเล่นในขณะนี้' }
+    },
+    flow: 'สถานะ:<br>🚧 ยังไม่มี Demo'
+  },
+  guard: {
+    title: 'ระบบตรวจการณ์',
+    steps: ['coming_soon'],
+    stepInfo: {
+      coming_soon: { title: 'ไม่มี Demo', desc: 'ระบบนี้ยังไม่มีสภาพแวดล้อมจำลอง (Demo) ให้ทดลองเล่นในขณะนี้' }
+    },
+    flow: 'สถานะ:<br>🚧 ยังไม่มี Demo'
   }
 };
 
@@ -2664,6 +2680,25 @@ function examNext() {
 function renderExamResult() {
   const correct = examState.answers.reduce((acc, a, i) => acc + (a === examQuestions[i].correct ? 1 : 0), 0);
   const pct = Math.round((correct / examQuestions.length) * 100);
+  
+  // Generating Answer Review Mockup
+  const answerReviewHtml = examQuestions.map((q, i) => {
+    const userAns = examState.answers[i];
+    const isCorrect = userAns === q.correct;
+    const boxColor = isCorrect ? '#15803d' : '#b91c1c';
+    const textColor = isCorrect ? '#4ade80' : '#f87171';
+    const userChoiceText = userAns !== null ? esc(q.choices[userAns]) : 'ไม่ได้ตอบ';
+    const correctChoiceText = esc(q.choices[q.correct]);
+    
+    return `
+      <div style="background:var(--liff-navy-2); border:1px solid ${boxColor}; border-radius:8px; padding:12px; margin-bottom:8px; text-align:left;">
+        <div style="font-size:11px; color:${textColor}; margin-bottom:4px; font-weight:600;">${isCorrect ? '✓' : '✗'} ข้อ ${i+1}: ${esc(q.q)}</div>
+        <div style="font-size:12px; color:var(--liff-text); margin-bottom:${isCorrect ? '0' : '4px'};">คุณตอบ: ${userChoiceText} ${isCorrect ? '(ถูกต้อง)' : ''}</div>
+        ${!isCorrect ? `<div style="font-size:11px; color:#4ade80;">เฉลย: ${correctChoiceText}</div>` : ''}
+      </div>
+    `;
+  }).join('');
+
   setScreen(`
     <div class="exam-result">
       <div class="exam-score-ring" style="--pct: ${pct}%">
@@ -2688,9 +2723,15 @@ function renderExamResult() {
           <div class="exam-stat-label">เวลา</div>
         </div>
       </div>
-      <div class="liff-btn-row" style="width:100%">
+      <div class="liff-btn-row" style="width:100%; margin-bottom:12px;">
         <button class="liff-btn liff-btn-secondary" onclick="resetDemo()">📊 ดูประวัติ</button>
         <button class="liff-btn liff-btn-primary" onclick="resetDemo()">🔄 สอบใหม่</button>
+      </div>
+
+      <!-- Add Answer Review Section here -->
+      <div style="width:100%; margin-top:12px; border-top:1px solid rgba(255,255,255,0.05); padding-top:16px;">
+        <div style="font-size:12px; font-weight:600; color:var(--liff-text-dim); margin-bottom:12px; text-align:left; width:100%;">📝 เฉลยข้อสอบ</div>
+        ${answerReviewHtml}
       </div>
     </div>
   `);
@@ -2805,7 +2846,13 @@ function renderMillionaire() {
   }).join('');
 
   setScreen(`
-    <div class="game-bar">
+    <!-- Added Lifelines visual mockup -->
+    <div style="display:flex; justify-content:space-between; margin-bottom:8px; padding:0 4px;">
+      <div style="font-size:10px; color:var(--liff-text-dim); background:var(--liff-navy-3); padding:4px 10px; border-radius:12px; cursor:pointer;" onclick="flashLiffNote('ตัวช่วย 50:50')">50:50</div>
+      <div style="font-size:10px; color:var(--liff-text-dim); background:var(--liff-navy-3); padding:4px 10px; border-radius:12px; cursor:pointer;" onclick="flashLiffNote('ตัวช่วยเปลี่ยนคำถาม')">🔄 เปลี่ยนคำถาม</div>
+    </div>
+    
+    <div class="game-bar" style="margin-top:0;">
       <span class="game-bomb">💣</span>
       <span class="game-timer-big" id="mTimer">${55 - qIdx * 4}</span>
       <span class="game-status">รางวัลสะสม: ${qIdx === 0 ? '฿0' : '฿1,000'}</span>
@@ -3112,6 +3159,18 @@ function renderCurrentStep() {
   else if (currentDemo === 'quests') renderQuests();
   else if (currentDemo === 'live') renderLive();
   else if (currentDemo === 'ranking') renderRanking();
+  else if (currentDemo === 'parcel' || currentDemo === 'guard') renderComingSoon();
+}
+
+function renderComingSoon() {
+  setScreen(`
+    <div style="text-align:center; padding-top:5rem;">
+      <div style="font-size:64px; margin-bottom:16px; opacity:0.6;">🚧</div>
+      <div style="font-size:20px; font-weight:700; color:var(--liff-text); margin-bottom:8px;">ยังไม่มี Demo</div>
+      <div style="font-size:13px; color:var(--liff-text-dim); margin-bottom:32px; line-height:1.6;">ระบบนี้ยังไม่มีสภาพแวดล้อมจำลอง (Demo) ให้ทดลองเล่นในขณะนี้</div>
+      <button class="liff-btn liff-btn-secondary liff-btn-block" onclick="document.getElementById('systems').scrollIntoView({behavior:'smooth'})">กลับไปเลือกระบบอื่น</button>
+    </div>
+  `);
 }
 
 /* ───── 9. STORE (PX) ───── */
@@ -3366,13 +3425,42 @@ function flashLiffNote(text) {
 function selectDemo(key, el) {
   currentDemo = key;
   currentStep = liffDemos[key].steps[0];
+  
+  updateDemoSidebar(key);
+
   document.querySelectorAll('.demo-option').forEach(b => b.classList.remove('active'));
-  if (el) el.classList.add('active');
+  if (el) {
+    el.classList.add('active');
+  } else {
+    const foundEl = document.querySelector(`.demo-option[onclick*="'${key}'"]`);
+    if (foundEl) foundEl.classList.add('active');
+  }
+  
   examState = { qIndex: 0, answers: [null, null, null], selected: null };
   fcState = { cardIndex: 0, stars: 0, timer: 59 };
   document.getElementById('liffTitle').textContent = liffDemos[key].title;
   document.getElementById('demoFlow').innerHTML = liffDemos[key].flow;
   renderCurrentStep();
+}
+
+function updateDemoSidebar(key) {
+  const titleEl = document.getElementById('demoLeftTitle');
+  const descEl = document.getElementById('demoLeftDesc');
+  const selectorEl = document.getElementById('demoSelector');
+  
+  if (key === 'parcel') {
+    titleEl.textContent = '📦 ระบบพัสดุ (Parcel)';
+    descEl.innerHTML = 'บริหารจัดการพัสดุรับ-จ่าย สแกน QR/Barcode และแจ้งเตือนผ่าน LINE/Telegram อัตโนมัติ<br><br><button onclick="document.getElementById(\'systems\').scrollIntoView({behavior:\'smooth\'})" style="background:transparent; border:none; color:var(--blue); cursor:pointer; font-family:inherit; font-size:13px; padding:0; display:inline-flex; align-items:center; gap:4px;">&larr; เลือกระบบอื่นจากด้านบน</button>';
+    selectorEl.style.display = 'none';
+  } else if (key === 'guard') {
+    titleEl.textContent = '🛡️ ระบบตรวจการณ์';
+    descEl.innerHTML = 'สแกน QR Code ตามจุดตรวจ บันทึกเวลา และแจ้งเตือนผู้บังคับบัญชาทันที<br><br><button onclick="document.getElementById(\'systems\').scrollIntoView({behavior:\'smooth\'})" style="background:transparent; border:none; color:var(--blue); cursor:pointer; font-family:inherit; font-size:13px; padding:0; display:inline-flex; align-items:center; gap:4px;">&larr; เลือกระบบอื่นจากด้านบน</button>';
+    selectorEl.style.display = 'none';
+  } else {
+    titleEl.textContent = 'เลือก flow ที่อยากลอง';
+    descEl.innerHTML = 'ทั้งหมดเป็นส่วนหนึ่งของระบบ <strong>Unit School</strong> — ระบบฝึกอบรมทหารที่ใช้งานจริง ลอง flow ไหนก่อนก็ได้';
+    selectorEl.style.display = 'flex';
+  }
 }
 
 function resetDemo() {
@@ -3381,13 +3469,11 @@ function resetDemo() {
 }
 
 function jumpToDemo(key) {
-  const keyMap = { training: 'register', parcel: 'exam', guard: 'exam' };
+  const keyMap = { training: 'register' };
   const targetKey = keyMap[key] || key;
   const el = document.querySelector(`.demo-option[onclick*="'${targetKey}'"]`);
-  if (el) {
-    selectDemo(targetKey, el);
-    document.getElementById('demo').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
+  selectDemo(targetKey, el);
+  document.getElementById('demo').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 
